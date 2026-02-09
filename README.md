@@ -213,19 +213,3 @@ Give a ⭐️ if you found this project helpful!
 **Built with ❤️ using Python and Flask**
 ```
 
-4. **Save** (`Ctrl+S`)
-
-**IMPORTANT:** Replace:
-- `YOUR_USERNAME` with your GitHub username
-- `YOUR_NAME` with your actual name
-- LinkedIn link with your profile
-
----
-
-## Step 3: Create requirements.txt (Optional but Professional)
-
-1. Click **New File**
-2. Name it: `requirements.txt`
-3. Paste this:
-```
-Flask==3.0.0
