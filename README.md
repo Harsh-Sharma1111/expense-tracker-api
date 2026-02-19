@@ -1,215 +1,110 @@
-# 💰 Personal Expense Tracker API
+# 💰 SpendWise Pro | Premium Expense Tracker
 
-A RESTful API built with Python and Flask for tracking and managing personal expenses with advanced filtering and analytics capabilities.
+SpendWise Pro is a high-performance, full-stack personal finance management application. It combines a robust **Python (Flask)** REST API with a stunning, modern **Glassmorphic Frontend** to provide an elite expense tracking experience.
 
 ![Python](https://img.shields.io/badge/Python-3.8+-blue.svg)
 ![Flask](https://img.shields.io/badge/Flask-3.0.0-green.svg)
 ![SQLite](https://img.shields.io/badge/SQLite-3-lightgrey.svg)
+![Frontend](https://img.shields.io/badge/Frontend-HTML/CSS/JS-orange.svg)
 ![License](https://img.shields.io/badge/License-MIT-yellow.svg)
 
-## 🚀 Features
+## ✨ Features
 
-- ✅ **Full CRUD Operations** - Create, Read, Update, and Delete expenses
-- 📊 **Category Filtering** - Filter expenses by category (Food, Transport, Bills, etc.)
-- 💵 **Total Spending Calculator** - Get overall spending totals
-- 📈 **Spending Summary** - Analyze spending by category with totals and counts
-- 🗄️ **SQLite Database** - Persistent data storage
-- 🛡️ **Error Handling** - Proper HTTP status codes and error messages
-- 🎯 **RESTful Design** - Clean and intuitive API endpoints
+### 🎨 Stunning Visuals
+- **Elite Glassmorphism UI**: A premium dark-themed interface with translucent cards and vibrant gradients.
+- **Interactive Dashboards**: Real-time stats for Total Spending, Top Categories, and Entry Counts.
+- **Micro-animations**: Smooth transitions and hover effects using CSS3 and Lucide Icons.
+
+### 📊 Powerful Analytics
+- **Category Breakdown**: Dynamic doughnut charts visualizing expenditure distribution.
+- **Spending Trends**: Bar charts summarizing daily expenditure for visual tracking.
+- **Live Search & Filter**: Instant filtering by category or description as you type.
+
+### 🛠️ Core Functionality
+- **Full CRUD Support**: Effortlessly add, view, edit, and delete expenses through sleek modal dialogs.
+- **Auto-Calculations**: Instant updates to all stats and charts upon data modification.
+- **Persistent Storage**: Robust SQLite backend for reliable data retention.
+- **Indian Rupee (₹) Support**: Tailored for the Indian financial ecosystem.
 
 ## 🛠️ Tech Stack
 
-- **Backend Framework:** Python 3.8+, Flask
-- **Database:** SQLite3
-- **API Design:** RESTful Architecture
-- **Testing:** Postman
+- **Backend:** Python (Flask), SQLite, Flask-CORS
+- **Frontend:** Vanilla HTML5, Modern CSS3 (Glassmorphism), Vanilla JavaScript (ES6+)
+- **Charts:** Chart.js
+- **Icons:** Lucide Icons
+- **Deployment:** Render / Heroku (via gunicorn & requirements.txt)
 
-## 📦 Installation & Setup
+## 🚀 Installation & Setup
 
 ### Prerequisites
-```bash
 - Python 3.8 or higher
-- pip (Python package manager)
-```
+- Browser (Chrome/Firefox/Edge)
 
 ### Quick Start
 
 1. **Clone the repository**
-```bash
-git clone https://github.com/YOUR_USERNAME/expense-tracker-api.git
-cd expense-tracker-api
-```
+   ```bash
+   git clone https://github.com/Harsh-Sharma1111/expense-tracker-api.git
+   cd expense-tracker-api
+   ```
 
 2. **Install dependencies**
-```bash
-pip install flask
-```
+   ```bash
+   pip install -r requirements.txt
+   ```
 
 3. **Run the application**
-```bash
-python app.py
-```
+   ```bash
+   python app.py
+   ```
 
-4. **Access the API**
-```
-http://127.0.0.1:5000
-```
-
-The server will start on port 5000 and automatically create the SQLite database.
-
-## 📚 API Documentation
-
-### Base URL
-```
-http://127.0.0.1:5000
-```
-
-### Endpoints Overview
-
-| Method | Endpoint | Description |
-|--------|----------|-------------|
-| GET | `/` | Welcome message & API information |
-| POST | `/expenses` | Create a new expense |
-| GET | `/expenses` | Retrieve all expenses |
-| GET | `/expenses/:id` | Get a specific expense by ID |
-| PUT | `/expenses/:id` | Update an expense |
-| DELETE | `/expenses/:id` | Delete an expense |
-| GET | `/expenses/category/:category` | Get expenses filtered by category |
-| GET | `/expenses/total` | Get total spending amount |
-| GET | `/expenses/summary` | Get spending breakdown by category |
-
-### Request & Response Examples
-
-#### Create Expense
-```http
-POST /expenses
-Content-Type: application/json
-
-{
-    "amount": 500,
-    "category": "Food",
-    "description": "Grocery shopping",
-    "date": "2026-02-05"
-}
-```
-
-**Response:**
-```json
-{
-    "message": "Expense added successfully",
-    "id": 1
-}
-```
-
-#### Get All Expenses
-```http
-GET /expenses
-```
-
-**Response:**
-```json
-{
-    "count": 3,
-    "expenses": [
-        {
-            "id": 1,
-            "amount": 500,
-            "category": "Food",
-            "description": "Grocery shopping",
-            "date": "2026-02-05"
-        }
-    ]
-}
-```
-
-#### Get Spending Summary
-```http
-GET /expenses/summary
-```
-
-**Response:**
-```json
-{
-    "total_spending": 2500,
-    "by_category": [
-        {
-            "category": "Bills",
-            "total": 1500,
-            "count": 1
-        },
-        {
-            "category": "Food",
-            "total": 800,
-            "count": 2
-        }
-    ]
-}
-```
+4. **Access the Website**
+   Open your browser and navigate to:
+   ```
+   http://127.0.0.1:5000
+   ```
 
 ## 📁 Project Structure
 ```
-expense-tracker-api/
-├── app.py              # Flask application with API routes
-├── database.py         # Database operations and SQL queries
-├── expenses.db         # SQLite database (auto-generated)
-├── README.md           # Project documentation
-├── .gitignore          # Git ignore rules
-└── requirements.txt    # Python dependencies (optional)
+expense-tracker/
+├── app.py              # Flask server & Static file serving
+├── database.py         # Database logic & SQL queries
+├── expenses.db         # SQLite database
+├── Procfile            # Deployment config
+├── requirements.txt    # Python dependencies
+└── frontend/           # Stunning UI folder
+    ├── index.html      # Main dashboard structure
+    ├── style.css       # Premium glassmorphic styles
+    └── app.js          # API integration & Chart logic
 ```
 
-## 🔧 Database Schema
+## 📚 API Endpoints (For Developers)
 
-**Expenses Table:**
-```sql
-CREATE TABLE expenses (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    amount REAL NOT NULL,
-    category TEXT NOT NULL,
-    description TEXT,
-    date TEXT NOT NULL
-);
-```
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| GET | `/` | Serves the Frontend |
+| GET | `/api-info` | Welcome message & API info |
+| POST | `/expenses` | Create a new expense |
+| GET | `/expenses` | Retrieve all expenses |
+| GET | `/expenses/:id` | Get specific expense |
+| PUT | `/expenses/:id` | Update an expense |
+| DELETE | `/expenses/:id` | Delete an expense |
+| GET | `/expenses/summary` | Get spending breakdown (Charts data) |
 
-## 🧪 Testing with Postman
+## ☁️ Deployment
 
-1. Import the API into Postman
-2. Set base URL: `http://127.0.0.1:5000`
-3. Test each endpoint with sample data
-4. Verify responses and status codes
+This project is configured for easy deployment on **Render** or **Heroku**:
 
-Example test collection available on request.
-
-## 🎯 Future Enhancements
-
-- [ ] User authentication and authorization (JWT)
-- [ ] Date range filtering for custom reports
-- [ ] Monthly/Yearly expense reports
-- [ ] Budget limits and alerts
-- [ ] Export data to CSV/Excel
-- [ ] Multi-currency support
-- [ ] Receipt image uploads
-- [ ] Recurring expenses tracking
+1. Create a New Web Service.
+2. Select the repository.
+3. **Build Command**: `pip install -r requirements.txt`
+4. **Start Command**: `gunicorn app:app`
 
 ## 🤝 Contributing
-
-Contributions, issues, and feature requests are welcome!
-
-## 📝 License
-
-This project is [MIT](LICENSE) licensed.
-
-## 👨‍💻 Author
-
-**YOUR_NAME**
-- GitHub: [@Harsh-Sharma1111](https://github.com/Harsh-Sharma1111)
-- LinkedIn: [Harsh Sharma](https://www.linkedin.com/in/harsh-sharma-ab1428375/)
+Contributions, issues, and feature requests are welcome! Feel free to check the [issues page](https://github.com/Harsh-Sharma1111/expense-tracker-api/issues).
 
 ## ⭐ Show Your Support
-
 Give a ⭐️ if you found this project helpful!
 
 ---
-
-**Built with ❤️ using Python and Flask**
-```
-
+**Built with ❤️ using Python, Flask, and Modern Web Design.**
