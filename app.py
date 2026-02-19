@@ -1,15 +1,21 @@
-from flask import Flask, jsonify, request #imports the flask framework
-import database #imports database module
+from flask import Flask, jsonify, request
+from flask_cors import CORS  
+import database as database
 
-app = Flask(__name__) #creates flask application
+app = Flask(__name__, static_folder='frontend', static_url_path='')
+CORS(app)  # Enable CORS for all routes
 
 database.init_db()
 
 @app.route('/') #defines URL path
 def home():
+    return app.send_static_file('index.html')
+
+@app.route('/api-info')
+def api_info():
     return jsonify({
         'message': 'Welcome to Expense Tracker API!',
-        'avialable_routes': [
+        'available_routes': [
             'POST /expenses - Add new expense',
             'GET /expenses - Get all expenses',
         ]

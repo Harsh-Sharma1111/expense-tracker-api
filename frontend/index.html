@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="A premium, stunning expense tracker to manage your finances with ease.">
+    <title>ExpenseTracker Pro | Manage Your Finances</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body>
+    <div class="app-container">
+        <!-- Sidebar/Navigation -->
+        <nav class="sidebar">
+            <div class="logo">
+                <i data-lucide="wallet"></i>
+                <span>SpendWise</span>
+            </div>
+            <ul class="nav-links">
+                <li class="active" data-target="dashboard">
+                    <i data-lucide="layout-dashboard"></i>
+                    <span>Dashboard</span>
+                </li>
+                <li data-target="expenses">
+                    <i data-lucide="receipt"></i>
+                    <span>Expenses</span>
+                </li>
+                <li data-target="analytics">
+                    <i data-lucide="pie-chart"></i>
+                    <span>Analytics</span>
+                </li>
+            </ul>
+        </nav>
+
+        <!-- Main Content -->
+        <main class="content">
+            <header>
+                <div class="header-info">
+                    <h1 id="page-title">Dashboard</h1>
+                    <p id="current-date"></p>
+                </div>
+                <div class="header-actions">
+                    <button id="add-expense-btn" class="btn btn-primary">
+                        <i data-lucide="plus"></i>
+                        <span>Add Expense</span>
+                    </button>
+                </div>
+            </header>
+
+            <!-- Dashboard View -->
+            <section id="dashboard-view" class="view active">
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-icon income-icon">
+                            <i data-lucide="arrow-up-right"></i>
+                        </div>
+                        <div class="stat-details">
+                            <h3>Total Spending</h3>
+                            <p id="total-spending-amount">₹0.00</p>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon expense-icon">
+                            <i data-lucide="shopping-bag"></i>
+                        </div>
+                        <div class="stat-details">
+                            <h3>Top Category</h3>
+                            <p id="top-category">-</p>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon active-icon">
+                            <i data-lucide="calendar"></i>
+                        </div>
+                        <div class="stat-details">
+                            <h3>Total Entries</h3>
+                            <p id="total-entries-count">0</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="dashboard-charts">
+                    <div class="chart-container glass">
+                        <h3>Spending by Category</h3>
+                        <canvas id="categoryChart"></canvas>
+                    </div>
+                    <div class="recent-expenses glass">
+                        <div class="section-header">
+                            <h3>Recent Expenses</h3>
+                            <a href="#" class="view-all" data-target="expenses">View All</a>
+                        </div>
+                        <div class="expense-list-mini" id="recent-expense-list">
+                            <!-- Recent items will be injected here -->
+                            <div class="loading-spinner"></div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Expenses List View -->
+            <section id="expenses-view" class="view">
+                <div class="filters-bar glass">
+                    <input type="text" id="search-expenses" placeholder="Search expenses...">
+                    <select id="filter-category">
+                        <option value="all">All Categories</option>
+                        <option value="Food">Food</option>
+                        <option value="Transport">Transport</option>
+                        <option value="Entertainment">Entertainment</option>
+                        <option value="Shopping">Shopping</option>
+                        <option value="Health">Health</option>
+                        <option value="Utilities">Utilities</option>
+                        <option value="Other">Other</option>
+                    </select>
+                </div>
+                <div class="expense-table-container glass">
+                    <table id="expense-table">
+                        <thead>
+                            <tr>
+                                <th>Date</th>
+                                <th>Category</th>
+                                <th>Description</th>
+                                <th>Amount</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="expense-tbody">
+                            <!-- Data injected via JS -->
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- Analytics View -->
+            <section id="analytics-view" class="view">
+                <div class="analytics-grid">
+                    <div class="chart-full glass">
+                        <h3>Expenditure Summary</h3>
+                        <canvas id="analyticsChart"></canvas>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Add/Edit Modal -->
+    <div id="expense-modal" class="modal">
+        <div class="modal-content glass">
+            <div class="modal-header">
+                <h2 id="modal-title">Add Expense</h2>
+                <button class="close-modal">&times;</button>
+            </div>
+            <form id="expense-form">
+                <input type="hidden" id="edit-id">
+                <div class="form-group">
+                    <label for="amount">Amount (₹)</label>
+                    <input type="number" id="amount" step="0.01" required placeholder="0.00">
+                </div>
+                <div class="form-group">
+                    <label for="category">Category</label>
+                    <select id="category" required>
+                        <option value="Food">Food</option>
+                        <option value="Transport">Transport</option>
+                        <option value="Entertainment">Entertainment</option>
+                        <option value="Shopping">Shopping</option>
+                        <option value="Health">Health</option>
+                        <option value="Utilities">Utilities</option>
+                        <option value="Other">Other</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="date">Date</label>
+                    <input type="date" id="date" required>
+                </div>
+                <div class="form-group">
+                    <label for="description">Description (Optional)</label>
+                    <textarea id="description" placeholder="Lunch at subway..."></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary full-width">Save Expense</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+
+</html>
